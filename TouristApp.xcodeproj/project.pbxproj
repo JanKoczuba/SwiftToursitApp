@@ -75,10 +75,10 @@
 		0C0B025B2D632ABC0026DF76 = {
 			isa = PBXGroup;
 			children = (
-				0C0B02662D632ABC0026DF76 /* TouristApp */,
 				0C0B02772D632ABD0026DF76 /* TouristAppTests */,
 				0C0B02812D632ABD0026DF76 /* TouristAppUITests */,
 				0C0B02652D632ABC0026DF76 /* Products */,
+				0C0B02662D632ABC0026DF76 /* TouristApp */,
 			);
 			sourceTree = "<group>";
 		};
