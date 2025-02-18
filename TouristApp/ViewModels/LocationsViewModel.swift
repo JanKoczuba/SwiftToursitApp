@@ -15,14 +15,15 @@ class LocationsViewModel: ObservableObject {
     @Published var locations: [Location]
 
     // current location on map
-    @Published var mapLocation: Location{
-        didSet{
+    @Published var mapLocation: Location {
+        didSet {
             updateMapRegion(location: mapLocation)
         }
     }
 
     // current location on map
-    @Published var mapRegion: MKCoordinateRegion = MKCoordinateRegion()
+    @Published var mapPosition: MapCameraPosition = .region(MKCoordinateRegion())
+
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
 
     init() {
@@ -34,10 +35,13 @@ class LocationsViewModel: ObservableObject {
 
     private func updateMapRegion(location: Location) {
         withAnimation(.easeInOut) {
-            mapRegion = MKCoordinateRegion(
-                center: location.coordinates,
-                span: mapSpan
+            mapPosition = .region(
+                MKCoordinateRegion(
+                    center: location.coordinates,
+                    span: mapSpan
+                )
             )
+
         }
 
     }
