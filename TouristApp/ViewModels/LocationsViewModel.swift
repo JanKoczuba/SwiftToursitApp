@@ -17,23 +17,27 @@ class LocationsViewModel: ObservableObject {
     // current location on map
     @Published var mapLocation: Location {
         didSet {
-            updateMapRegion(location: mapLocation)
+            updateMapPosition(location: mapLocation)
         }
     }
 
     // current location on map
-    @Published var mapPosition: MapCameraPosition = .region(MKCoordinateRegion())
+    @Published var mapPosition: MapCameraPosition = .region(
+        MKCoordinateRegion())
 
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+
+    // Show list of location
+    @Published var showLocationsList: Bool = false
 
     init() {
         let locations = LocationsDataService.locations
         self.locations = locations
         self.mapLocation = locations.first!
-        updateMapRegion(location: locations.first!)
+        updateMapPosition(location: locations.first!)
     }
 
-    private func updateMapRegion(location: Location) {
+    private func updateMapPosition(location: Location) {
         withAnimation(.easeInOut) {
             mapPosition = .region(
                 MKCoordinateRegion(
@@ -43,6 +47,18 @@ class LocationsViewModel: ObservableObject {
             )
 
         }
+    }
 
+    func toggleLocationsList() {
+        withAnimation(.easeInOut) {
+            showLocationsList = !showLocationsList
+        }
+    }
+    
+    func showNextLocation(location: Location){
+        withAnimation(.easeInOut){
+            mapLocation = location
+            showLocationsList = false
+        }
     }
 }
