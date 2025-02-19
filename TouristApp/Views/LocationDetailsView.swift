@@ -51,7 +51,10 @@ extension LocationDetailsView {
                 Image(imageName)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: UIScreen.main.bounds.width)
+                    .frame(
+                        width: UIDevice.current.userInterfaceIdiom == .pad
+                            ? nil : UIScreen.main.bounds.width
+                    )
                     .clipped()
             }
         }
@@ -91,7 +94,8 @@ extension LocationDetailsView {
                 .region(
                     MKCoordinateRegion(
                         center: location.coordinates,
-                        span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
+                        span: MKCoordinateSpan(
+                            latitudeDelta: 0.01, longitudeDelta: 0.01)
                     )
                 ))
 
